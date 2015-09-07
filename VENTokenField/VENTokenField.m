@@ -45,6 +45,8 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 @property (strong, nonatomic) UIColor *colorScheme;
 @property (strong, nonatomic) UILabel *collapsedLabel;
 
+@property (nonatomic, assign) CGFloat intrinsicContentHeight;
+
 @end
 
 
@@ -171,6 +173,17 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 
 #pragma mark - View Layout
 
+- (void)setIntrinsicContentHeight:(CGFloat)intrinsicContentHeight {
+    _intrinsicContentHeight = intrinsicContentHeight;
+    [self invalidateIntrinsicContentSize];
+}
+
+- (CGSize)intrinsicContentSize {
+
+    return CGSizeMake(UIViewNoIntrinsicMetric,
+                      MIN(MAX(self.intrinsicContentHeight, self.originalHeight), self.maxHeight));
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -186,7 +199,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 {
     [self.collapsedLabel removeFromSuperview];
     self.scrollView.hidden = YES;
-    [self setHeight:self.originalHeight];
+    [self setIntrinsicContentHeight:self.originalHeight];
 
     CGFloat currentX = 0;
     [self layoutToLabelInView:self origin:CGPointMake(self.horizontalInset, self.verticalInset) currentX:&currentX];
@@ -214,11 +227,15 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     [self layoutTokensWithCurrentX:&currentX currentY:&currentY];
     [self layoutInputTextFieldWithCurrentX:&currentX currentY:&currentY];
 
-    if (shouldAdjustFrame) {
+//    if (shouldAdjustFrame) {
         [self adjustHeightForCurrentY:currentY];
-    }
+//    }
 
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.contentSize.width, currentY + [self heightForToken])];
+    CGFloat contentHeight = currentY;
+    if ((currentY + [self heightForToken]) > self.maxHeight) {
+        contentHeight += [self heightForToken];
+    }
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.contentSize.width, contentHeight)];
 
     [self updateInputTextField];
 
@@ -373,19 +390,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 
 - (void)adjustHeightForCurrentY:(CGFloat)currentY
 {
-    if (currentY + [self heightForToken] > CGRectGetHeight(self.frame)) { // needs to grow
-        if (currentY + [self heightForToken] <= self.maxHeight) {
-            [self setHeight:currentY + [self heightForToken] + self.verticalInset * 2];
-        } else {
-            [self setHeight:self.maxHeight];
-        }
-    } else { // needs to shrink
-        if (currentY + [self heightForToken] > self.originalHeight) {
-            [self setHeight:currentY + [self heightForToken] + self.verticalInset * 2];
-        } else {
-            [self setHeight:self.originalHeight];
-        }
-    }
+    [self setIntrinsicContentHeight:currentY + [self heightForToken] + self.verticalInset * 2];
 }
 
 - (VENBackspaceTextField *)inputTextField
