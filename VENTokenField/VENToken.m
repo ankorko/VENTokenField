@@ -23,9 +23,9 @@
 #import "VENToken.h"
 
 @interface VENToken ()
-@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UIView *backgroundView;
+@property (strong, nonatomic, readwrite) UITapGestureRecognizer *tapGestureRecognizer;
+@property (strong, nonatomic, readwrite) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic, readwrite) IBOutlet UIView *backgroundView;
 @end
 
 @implementation VENToken

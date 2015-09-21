@@ -313,26 +313,23 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 - (void)layoutTokensWithCurrentX:(CGFloat *)currentX currentY:(CGFloat *)currentY
 {
     for (NSUInteger i = 0; i < [self numberOfTokens]; i++) {
-        NSString *title = [self titleForTokenAtIndex:i];
-        VENToken *token = [[VENToken alloc] init];
-
+        VENToken *token = [self tokenField:self tokenAtIndex:i];
         __weak VENToken *weakToken = token;
         __weak VENTokenField *weakSelf = self;
         token.didTapTokenBlock = ^{
             [weakSelf didTapToken:weakToken];
         };
 
-        [token setTitleText:[NSString stringWithFormat:@"%@,", title]];
         token.colorScheme = [self colorSchemeForTokenAtIndex:i];
         
         [self.tokens addObject:token];
-
+        [token sizeToFit];
         if (*currentX + token.width <= self.scrollView.contentSize.width) { // token fits in current line
-            token.frame = CGRectMake(*currentX, *currentY, token.width, token.height);
+            token.frame = CGRectMake(*currentX, *currentY, token.intrinsicContentSize.width, token.height);
         } else {
             *currentY += token.height;
             *currentX = 0;
-            CGFloat tokenWidth = token.width;
+            CGFloat tokenWidth = token.intrinsicContentSize.width;
             if (tokenWidth > self.scrollView.contentSize.width) { // token is wider than max width
                 tokenWidth = self.scrollView.contentSize.width;
             }
@@ -510,6 +507,19 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 }
 
 #pragma mark - Data Source
+
+- (VENToken *)tokenField:(VENTokenField *)tokenField tokenAtIndex:(NSUInteger)index {
+    if ([self.dataSource respondsToSelector:@selector(tokenField:tokenAtIndex:)]) {
+        return [self.dataSource tokenField:self tokenAtIndex:index];
+    }
+    // return default token with just a configurable title
+    VENToken *token = [[VENToken alloc] init];
+    NSString *title = [self titleForTokenAtIndex:index];
+    [token setTitleText:[NSString stringWithFormat:@"%@,", title]];
+    
+    return token;
+}
+
 
 - (NSString *)titleForTokenAtIndex:(NSUInteger)index
 {

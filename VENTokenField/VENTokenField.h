@@ -22,7 +22,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class VENTokenField;
+@class VENTokenField, VENToken;
 @protocol VENTokenFieldDelegate <NSObject>
 @optional
 - (void)tokenField:(VENTokenField *)tokenField didEnterText:(NSString *)text;
@@ -33,6 +33,7 @@
 
 @protocol VENTokenFieldDataSource <NSObject>
 @optional
+- (VENToken *)tokenField:(VENTokenField *)tokenField tokenAtIndex:(NSUInteger)index;
 - (NSString *)tokenField:(VENTokenField *)tokenField titleForTokenAtIndex:(NSUInteger)index;
 - (NSUInteger)numberOfTokensInTokenField:(VENTokenField *)tokenField;
 - (NSString *)tokenFieldCollapsedText:(VENTokenField *)tokenField;
