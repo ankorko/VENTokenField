@@ -32,5 +32,6 @@
 @property (strong, nonatomic) UIColor *colorScheme;
 
 - (void)setTitleText:(NSString *)text;
+- (void)didTapToken:(UITapGestureRecognizer *)tapGestureRecognizer;
 
 @end

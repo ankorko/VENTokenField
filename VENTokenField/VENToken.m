@@ -73,9 +73,6 @@
     [self setHighlighted:_highlighted];
 }
 
-
-#pragma mark - Private
-
 - (void)didTapToken:(UITapGestureRecognizer *)tapGestureRecognizer
 {
     if (self.didTapTokenBlock) {
