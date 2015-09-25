@@ -170,6 +170,9 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     return self.inputTextField.text;
 }
 
+- (VENToken *)tokenAtIndex:(NSUInteger)index {
+    return self.tokens[index];
+}
 
 #pragma mark - View Layout
 
@@ -317,7 +320,11 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         __weak VENToken *weakToken = token;
         __weak VENTokenField *weakSelf = self;
         token.didTapTokenBlock = ^{
-            [weakSelf didTapToken:weakToken];
+            __typeof__(self) strongSelf = weakSelf;
+            [strongSelf didTapToken:weakToken];
+            if ([strongSelf.delegate respondsToSelector:@selector(tokenField:didTapTokenAtIndex:)]) {
+                [strongSelf.delegate tokenField:strongSelf didTapTokenAtIndex:i];
+            }
         };
 
         token.colorScheme = [self colorSchemeForTokenAtIndex:i];
