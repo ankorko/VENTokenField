@@ -29,6 +29,8 @@
 - (void)tokenField:(VENTokenField *)tokenField didDeleteTokenAtIndex:(NSUInteger)index;
 - (void)tokenField:(VENTokenField *)tokenField didChangeText:(NSString *)text;
 - (void)tokenFieldDidBeginEditing:(VENTokenField *)tokenField;
+- (void)tokenField:(VENTokenField *)tokenField didTapTokenAtIndex:(NSUInteger)index;
+
 @end
 
 @protocol VENTokenFieldDataSource <NSObject>
@@ -79,6 +81,7 @@
 @property (copy, nonatomic) NSString *inputTextFieldAccessibilityLabel;
 
 - (void)setColorScheme:(UIColor *)color;
+- (VENToken *)tokenAtIndex:(NSUInteger)index;
 
 @end
 
