@@ -22,6 +22,8 @@
 
 #import "VENToken.h"
 
+#import <UIView+NibLoading/UIView+NibLoading.h>
+
 @interface VENToken ()
 @property (strong, nonatomic, readwrite) UITapGestureRecognizer *tapGestureRecognizer;
 @property (strong, nonatomic, readwrite) IBOutlet UILabel *titleLabel;
@@ -30,10 +32,19 @@
 
 @implementation VENToken
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [[[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] firstObject];
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
     if (self) {
+        [self loadContentsFromNib];
+        [self setUpInit];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self loadContentsFromNib];
         [self setUpInit];
     }
     return self;
