@@ -25,9 +25,11 @@
 #import <UIView+NibLoading/UIView+NibLoading.h>
 
 @interface VENToken ()
-@property (strong, nonatomic, readwrite) UITapGestureRecognizer *tapGestureRecognizer;
+
 @property (strong, nonatomic, readwrite) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic, readwrite) IBOutlet UIView *backgroundView;
+@property (strong, nonatomic, readwrite) IBOutlet UIButton *button;
+
 @end
 
 @implementation VENToken
@@ -53,10 +55,11 @@
 - (void)setUpInit
 {
     self.backgroundView.layer.cornerRadius = 5;
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapToken:)];
     self.colorScheme = [UIColor blueColor];
     self.titleLabel.textColor = self.colorScheme;
-    [self addGestureRecognizer:self.tapGestureRecognizer];
+    [self.button addTarget:self
+                    action:@selector(didTapToken:)
+          forControlEvents:UIControlEventTouchDown];
 }
 
 - (void)setTitleText:(NSString *)text
@@ -84,7 +87,7 @@
     [self setHighlighted:_highlighted];
 }
 
-- (void)didTapToken:(UITapGestureRecognizer *)tapGestureRecognizer
+- (void)didTapToken:(id)sender
 {
     if (self.didTapTokenBlock) {
         self.didTapTokenBlock();

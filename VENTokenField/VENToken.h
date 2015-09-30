@@ -25,13 +25,13 @@
 @interface VENToken : UIView
 
 @property (assign, nonatomic) BOOL highlighted;
-@property (strong, nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
 @property (strong, nonatomic, readonly) UILabel *titleLabel;
 @property (strong, nonatomic, readonly) UIView *backgroundView;
+@property (strong, nonatomic, readonly) UIButton *button;
 @property (copy, nonatomic) void (^didTapTokenBlock) (void);
 @property (strong, nonatomic) UIColor *colorScheme;
 
 - (void)setTitleText:(NSString *)text;
-- (void)didTapToken:(UITapGestureRecognizer *)tapGestureRecognizer;
+- (void)setUpInit;
 
 @end

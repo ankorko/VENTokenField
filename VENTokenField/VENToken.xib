@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VENToken">
             <connections>
                 <outlet property="backgroundView" destination="iTY-XB-2Ul" id="IhC-fn-bHM"/>
+                <outlet property="button" destination="6Wu-tM-MK5" id="SMw-XN-7be"/>
                 <outlet property="titleLabel" destination="OfV-hv-jq4" id="eUt-q5-Ez1"/>
             </connections>
         </placeholder>
@@ -28,6 +29,11 @@
                     <color key="textColor" red="0.21568627450980393" green="0.58431372549019611" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6Wu-tM-MK5">
+                    <rect key="frame" x="0.0" y="0.0" width="124" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <animations/>
+                </button>
             </subviews>
             <animations/>
             <nil key="simulatedStatusBarMetrics"/>
