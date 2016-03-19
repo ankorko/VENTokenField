@@ -30,16 +30,17 @@
 - (void)tokenField:(VENTokenField *)tokenField didChangeText:(NSString *)text;
 - (void)tokenFieldDidBeginEditing:(VENTokenField *)tokenField;
 - (void)tokenField:(VENTokenField *)tokenField didTapTokenAtIndex:(NSUInteger)index;
-
 @end
 
 @protocol VENTokenFieldDataSource <NSObject>
 @optional
 - (VENToken *)tokenField:(VENTokenField *)tokenField tokenAtIndex:(NSUInteger)index;
+- (VENToken *)tokenField:(VENTokenField *)tokenField lastTokenForCollapsedWithTokensRemaining: (NSUInteger)tokensRemaining;
 - (NSString *)tokenField:(VENTokenField *)tokenField titleForTokenAtIndex:(NSUInteger)index;
 - (NSUInteger)numberOfTokensInTokenField:(VENTokenField *)tokenField;
 - (NSString *)tokenFieldCollapsedText:(VENTokenField *)tokenField;
 - (UIColor *)tokenField:(VENTokenField *)tokenField colorSchemeForTokenAtIndex:(NSUInteger)index;
+
 @end
 
 
@@ -50,7 +51,10 @@
 
 - (void)reloadData;
 - (void)collapse;
+- (void)expand;
+- (void)scrollToTop;
 - (NSString *)inputText;
+- (void)unhighlightAllTokens;
 
 
 /**-----------------------------------------------------------------------------
