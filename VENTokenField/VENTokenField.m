@@ -552,15 +552,6 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 75.0;
     return 0;
 }
 
-- (NSString *)collapsedText
-{
-    if ([self.dataSource respondsToSelector:@selector(tokenFieldCollapsedText:)]) {
-        return [self.dataSource tokenFieldCollapsedText:self];
-    }
-    
-    return @"";
-}
-
 
 #pragma mark - UITextFieldDelegate
 
