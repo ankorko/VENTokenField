@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "VENToken.h"
+@import UIView_NibLoading;
 
-#import <UIView+NibLoading/UIView+NibLoading.h>
+#import "VENToken.h"
 
 @interface VENToken ()
 
