@@ -311,8 +311,9 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 75.0;
         
       
         [token sizeToFit];
-        if (*currentX + token.width <= self.scrollView.contentSize.width) { // token fits in current line
-            token.frame = CGRectMake(*currentX, *currentY, token.intrinsicContentSize.width, token.height);
+        CGFloat intrinsicWidth = token.intrinsicContentSize.width;
+        if (*currentX + intrinsicWidth <= self.scrollView.contentSize.width) { // token fits in current line
+            token.frame = CGRectMake(*currentX, *currentY, intrinsicWidth, token.height);
         } else {
               if(self.collapsed) {
                   int j = i;
