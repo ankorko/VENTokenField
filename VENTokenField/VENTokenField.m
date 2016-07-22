@@ -326,6 +326,9 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 75.0;
                           tokenFits = YES;
                       } else {
                         j--;
+                          if (j < 0) {
+                              break;
+                          }
                         VENToken *previous = localTokens[j];
                         [previous removeFromSuperview];
                         *currentX -= (previous.width + self.tokenPadding);
